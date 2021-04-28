@@ -9929,5 +9929,44 @@ h3 {
     border-color: #dee2e6;
   }
 }
+h2 {
+  font-size: 1.5em;
+}
+
+header {
+  padding: 1.5em;
+}
+
+a {
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+section {
+  padding: 1em;
+}
+
+main {
+  padding: 1em;
+}
+
+footer {
+  padding: 1.5em;
+}
+
+h3 {
+  font-size: 1.3em;
+  border-bottom: 2px solid #e78b06;
+  padding-top: 1em;
+  padding-bottom: 0.2em;
+}
+
+ul {
+  list-style-type: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
 
 /*# sourceMappingURL=style.css.map */
