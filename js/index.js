@@ -1,22 +1,22 @@
-const APIURL = "http://localhost:3000/api/teddies";
-
-/* Création des cards produits */ 
+/* Création des cards produits */
 
 function createCardTeddy(teddies){
-    let articleCard = document.createElement("article");
-    const mainHome = document.getElementById("main-home");
-    mainHome.appendChild(articleCard);
-    articleCard.classList.add("col-10", "col-md-5", "bg-light", "d-flex", "flex-wrap", "justify-content-between", "align-items-between");
-
     for (let i = 0; i < teddies.length; i++){
+
+        let articleCard = document.createElement("article");
+        const mainHome = document.getElementById("main-home");
+        mainHome.appendChild(articleCard);
+        articleCard.classList.add("col-12", "col-md-5", "bg-light", "d-flex", "flex-wrap", "justify-content-between", "align-items-between");
+    
         let cardTeddy = document.createElement("div");
         articleCard.appendChild(cardTeddy);
-        cardTeddy.classList.add("card", "col");
+        cardTeddy.classList.add("card", "col", "bg-light");
 
         /* IMAGES */
         let imageTeddy = document.createElement("img");
         cardTeddy.appendChild(imageTeddy);
         imageTeddy.classList.add("card-img-top", "photo", "img-fluid");
+        imageTeddy.setAttribute("alt", "photo de " + teddies[i].name)
         imageTeddy.src = teddies[i].imageUrl;
 
         /* CARD BODY */
@@ -38,38 +38,19 @@ function createCardTeddy(teddies){
         /* CARD BODY - PRIX */
         let priceTeddy = document.createElement("p");
         divLink.appendChild(priceTeddy);
-        priceTeddy.classList.add("price", "font-weight-bold", "text-secondary");
+        priceTeddy.classList.add("price", "font-weight-bold", "text-primary");
         priceTeddy.textContent = teddies[i].price / 100 + " euros";
 
         /* CARD BODY - BOUTON */
 
         let linkToProduct = document.createElement("a");
         divLink.appendChild(linkToProduct);
-        getUrlProduct(teddies, i, linkToProduct);
+        linkToProduct.setAttribute("href", "./pages/produit.html?id=" + teddies[i]._id);
         createButtonLinkToProduct(linkToProduct);
     }
 }
 
 /* END Création des cards produits */ 
-
-
-/* Redirection page produit */
-
-function getUrlProduct(teddies, i, linkToProduct){
-
-    /* Récupération URL */
-    let splitUrl = window.location.pathname.split("/");
-    let lastItem = splitUrl.pop();
-    let url = window.location.pathname.replace(lastItem, "../pages/produit.html");
-
-    /* Création objet URL*/
-    let urlObject = new URL(url);
-    let idTeddy = teddies[i]._id;
-    urlObject.searchParams.append("id", idTeddy);
-    linkToProduct.href = urlObject;
-}
-
-/* END Redirection page produit */
 
 
 /* Création Bouton de redirection */ 
@@ -78,8 +59,8 @@ function createButtonLinkToProduct(linkToProduct){
 
     let buttonInfo = document.createElement("button");
     linkToProduct.appendChild(buttonInfo);
-    buttonInfo.classList.add("btn", "btn-secondary", "text-primary");
-    buttonInfo.textContent = "Voir le produit"
+    buttonInfo.classList.add("btn", "btn-info", "text-primary", "font-weight-bold");
+    buttonInfo.textContent = "Voir le produit"; 
 }
 
 /* END Création Bouton de redirection */ 
@@ -87,35 +68,7 @@ function createButtonLinkToProduct(linkToProduct){
 
 /* Appel API produits */
 
-/* ESSAI 1 !!!! 
-    function getTeddies() {
-    fetch("http://localhost:3000/api/teddies")
-    .then(function(res){
-        if (res.ok){
-            return res.json();
-           
-        }
-    })
-    .then(createCardTeddy(teddies))
-    .catch(function(err){
-        console.error("Retour du serveur : ", res.status)
-    })
-}*/
-
-/* ESSAI 2 !!!
-    async function getTeddies(){
-    try{
-        let response = await fetch("​http://localhost:3000/api/teddies");
-        if (response.ok) {
-            let teddies = await response.json();
-            createCardTeddy(teddies);
-        } else {
-            console.error("Retour du serveur : ", response.status)
-        }
-    } catch (e) {
-        console.log(e);
-    }
-} */
+const APIURL = "http://localhost:3000/api/teddies";
 
 getTeddies = () =>{
     return new Promise((resolve) =>{
@@ -124,9 +77,9 @@ getTeddies = () =>{
             if (this.readyState == XMLHttpRequest.DONE && this.status ==200){
                 resolve(JSON.parse(this.responseText));
                 console.log("Connection ok");
-                createCardTeddy;
+                createCardTeddy(teddies);
             } else {
-                console.log("ERROR connection API")
+                console.log("ERREUR connection API")
             }
         }
         request.open("GET", APIURL);

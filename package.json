@@ -1,15 +1,26 @@
 {
   "name": "orinoco-backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "Technologies utilisées : HTML, CSS, JavaScript",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bootstrap": "^4.6.0",
     "express": "^4.16.4",
     "uuid": "^3.3.2"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kawacassie/CassandraGuillet_5_26042021.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kawacassie/CassandraGuillet_5_26042021/issues"
+  },
+  "homepage": "https://github.com/kawacassie/CassandraGuillet_5_26042021#readme"
 }
