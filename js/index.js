@@ -17,7 +17,7 @@ function createCardTeddy(teddies){
         cardTeddy.appendChild(imageTeddy);
         imageTeddy.classList.add("card-img-top", "photo", "img-fluid");
         imageTeddy.setAttribute("alt", "photo de " + teddies[i].name)
-        imageTeddy.src = teddies[i].imageUrl;
+        imageTeddy.src = "./images/" + teddies[i].imageUrl;
 
         /* CARD BODY */
         let divCardBody = document.createElement("div");
