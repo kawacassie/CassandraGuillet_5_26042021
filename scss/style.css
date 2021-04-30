@@ -9941,6 +9941,10 @@ h2 {
   font-size: 1.5em;
 }
 
+.form-control {
+  border: 2px solid #d4c0ff;
+}
+
 header {
   padding: 1.5em;
 }

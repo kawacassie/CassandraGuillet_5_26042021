@@ -82,25 +82,64 @@ function createCardChoosenTeddy(choosenTeddy, idTeddy){
     descriptionTeddy.classList.add("description", "text-justify", "text-primary");
     descriptionTeddy.textContent = choosenTeddy.description;
 
-     /* CARD BODY - DIV PRIX + BOUTON */
-     let divLink = document.createElement("div");
-     divCardBody.appendChild(divLink);
-     divLink.classList.add("d-flex", "flex-row", "justify-content-between");
+    /* CARD BODY - DIV PRIX + DIV CHOIX */
+    let divPriceChoice = document.createElement("div");
+    divCardBody.appendChild(divPriceChoice);
+    divPriceChoice.classList.add("d-flex", "flex-row", "justify-content-between", "py-4");
+
+     /* CARD BODY - DIV PRIX */
+     let divPrice = document.createElement("div");
+     divPriceChoice.appendChild(divPrice);
+     divPrice.classList.add("d-flex", "flex-row", "justify-content-start", "col-7");
 
      /* CARD BODY - PRIX */
      let priceTeddy = document.createElement("p");
-     divLink.appendChild(priceTeddy);
+     divPrice.appendChild(priceTeddy);
      priceTeddy.classList.add("price", "font-weight-bold", "text-primary");
      priceTeddy.textContent = choosenTeddy.price / 100 + " euros";
 
-     /* CARD BODY - BOUTON */
+     /* CARD BODY - DIV CHOIX + COULEURS */
+     let divLink = document.createElement("div");
+     divPriceChoice.appendChild(divLink);
+     divLink.classList.add("d-flex", "flex-row", "justify-content-between", "col-5");
+
+     /* CARD BODY - BOUTON CHOIX */
+
+     chooseColor(divLink, choosenTeddy)
+
+     /* CARD BODY - BOUTON AJOUT PANIER */
 
      let linkToPanier = document.createElement("a");
-     divLink.appendChild(linkToPanier);
+     divCardBody.appendChild(linkToPanier);
      createButtonLinkToProduct(linkToPanier);
 }
 
 /* END Création card produit selectionné */
+
+
+/* Création choix de la couleur */ 
+
+function chooseColor(divLink, choosenTeddy){
+    let sentenceChooseColor = document.createElement("p");
+    divLink.appendChild(sentenceChooseColor);
+    sentenceChooseColor.classList.add("font-weight-bold", "text-primary");
+    sentenceChooseColor.textContent = "Choisissez la couleur : ";
+
+    let propositionColor = document.createElement("select");
+    divLink.appendChild(propositionColor);
+    propositionColor.classList.add("form-control", "col-5", "text-secondary");
+    propositionColor.id = "colorsList"; 
+
+    numberColors = choosenTeddy.colors;
+    for (let i = 0; i < numberColors.length; i++){
+        let optionColors = document.createElement("option");
+        propositionColor.appendChild(optionColors);
+        optionColors.textContent = choosenTeddy.colors[i];
+    }
+}
+
+/* END Création choix de la couleur */
+
 
 /* Création Bouton ajouter au panier */ 
 
@@ -108,7 +147,7 @@ function createButtonLinkToProduct(linkToPanier){
 
     let buttonPanier = document.createElement("button");
     linkToPanier.appendChild(buttonPanier);
-    buttonPanier.classList.add("btn", "btn-info", "text-primary", "font-weight-bold");
+    buttonPanier.classList.add("btn", "btn-info", "text-primary", "font-weight-bold", "my-4");
     buttonPanier.textContent = "Ajouter au panier"; 
 }
 
