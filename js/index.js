@@ -1,5 +1,35 @@
-/* Création des cards produits */
+let teddies = [];
 
+/* Appel API produits */
+
+const APIURL = "http://localhost:3000/api/teddies";
+
+
+getTeddies = () =>{
+    return new Promise((resolve) =>{
+        let request = new XMLHttpRequest();
+        request.onreadystatechange = function(){
+            if (this.readyState === XMLHttpRequest.DONE && this.status ===200){
+                resolve(JSON.parse(this.responseText));
+                console.log("Connection ok");
+                teddies = JSON.parse(this.responseText);
+                createCardTeddy(teddies);
+            } else {
+                console.log("ERREUR connection API")
+            }
+        }
+        request.open("GET", APIURL);
+        request.send();
+
+    })
+}
+
+/* END Appel API produits */
+
+getTeddies()
+
+
+/* Création des cards produits */
 function createCardTeddy(teddies){
     for (let i = 0; i < teddies.length; i++){
 
@@ -17,7 +47,8 @@ function createCardTeddy(teddies){
         cardTeddy.appendChild(imageTeddy);
         imageTeddy.classList.add("card-img-top", "photo", "img-fluid");
         imageTeddy.setAttribute("alt", "photo de " + teddies[i].name)
-        imageTeddy.src = "./images/" + teddies[i].imageUrl;
+        imageTeddy.src = teddies[i].imageUrl;
+        console.log(teddies[0].imageUrl)
 
         /* CARD BODY */
         let divCardBody = document.createElement("div");
@@ -64,30 +95,3 @@ function createButtonLinkToProduct(linkToProduct){
 }
 
 /* END Création Bouton de redirection */ 
-
-
-/* Appel API produits */
-
-const APIURL = "http://localhost:3000/api/teddies";
-
-getTeddies = () =>{
-    return new Promise((resolve) =>{
-        let request = new XMLHttpRequest();
-        request.onreadystatechange = function(){
-            if (this.readyState == XMLHttpRequest.DONE && this.status ==200){
-                resolve(JSON.parse(this.responseText));
-                console.log("Connection ok");
-                createCardTeddy(teddies);
-            } else {
-                console.log("ERREUR connection API")
-            }
-        }
-        request.open("GET", APIURL);
-        request.send();
-    })
-}
-
-/* END Appel API produits */
-
-
-getTeddies()

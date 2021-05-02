@@ -1,3 +1,5 @@
+let teddies = [];
+
 /* Appel API produits */
 
 const APIURL = "http://localhost:3000/api/teddies";
@@ -9,6 +11,7 @@ getTeddies = () =>{
             if (this.readyState == XMLHttpRequest.DONE && this.status ==200){
                 resolve(JSON.parse(this.responseText));
                 console.log("Connection ok");
+                teddies = JSON.parse(this.responseText);
                 detailTeddy();
             } else {
                 console.log("ERREUR connection API")
@@ -63,7 +66,7 @@ function createCardChoosenTeddy(choosenTeddy, idTeddy){
     cardTeddy.appendChild(imageTeddy);
     imageTeddy.classList.add("card-img-top", "photo", "img-fluid");
     imageTeddy.setAttribute("alt", "photo de " + choosenTeddy.name)
-    imageTeddy.src = "../images/" + choosenTeddy.imageUrl;
+    imageTeddy.src = choosenTeddy.imageUrl;
 
     /* CARD BODY */
     let divCardBody = document.createElement("div");
