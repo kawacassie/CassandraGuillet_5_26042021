@@ -114,7 +114,15 @@ function createCardChoosenTeddy(choosenTeddy, idTeddy){
 
      let linkToPanier = document.createElement("a");
      divCardBody.appendChild(linkToPanier);
-     createButtonLinkToProduct(linkToPanier);
+
+     let buttonPanier = document.createElement("button");
+     linkToPanier.appendChild(buttonPanier);
+     buttonPanier.classList.add("btn", "btn-info", "text-primary", "font-weight-bold", "my-4");
+     buttonPanier.textContent = "Ajouter au panier";
+     console.log(idTeddy);
+     addPanier(buttonPanier, idTeddy);
+
+    
 }
 
 /* END Création card produit selectionné */
@@ -144,16 +152,37 @@ function chooseColor(divLink, choosenTeddy){
 /* END Création choix de la couleur */
 
 
-/* Création Bouton ajouter au panier */ 
+/* Ajout élément dans le panier */ 
 
-function createButtonLinkToProduct(linkToPanier){
-
-    let buttonPanier = document.createElement("button");
-    linkToPanier.appendChild(buttonPanier);
-    buttonPanier.classList.add("btn", "btn-info", "text-primary", "font-weight-bold", "my-4");
-    buttonPanier.textContent = "Ajouter au panier"; 
+class MyProduct {
+    constructor(idTeddy, selectedColor){
+        this.idTeddy = idTeddy; 
+        this.selectedColor = selectedColor;
+    }
 }
 
-/* END Création Bouton ajouter au panier */ 
+if(localStorage.getItem("contenuPanier")){
+    console.log("Panier existant");
+} else {
+    console.log("Le panier n'existe pas, création du panier");
+    let creerPanier = [];
+    localStorage.setItem("contenuPanier", JSON.stringify(creerPanier));
+}
+
+function addPanier(buttonPanier, idTeddy){
+    buttonPanier.addEventListener ("click", function () {
+        let contenuPanier = JSON.parse(localStorage.getItem("contenuPanier"));
+        let selectedColor = document.getElementById("colorsList").value;
+        //console.log(selectedColor);
+        //console.log(idTeddy);
+        let product = new MyProduct(idTeddy, selectedColor);
+        contenuPanier.push(product);
+        localStorage.setItem("contenuPanier", JSON.stringify(contenuPanier));
+        console.log(contenuPanier);
+    })
+}
+
+/* END Ajout élément dans le panier */ 
+
 
 getTeddies()
