@@ -9951,7 +9951,13 @@ h3 {
 h4 {
   font-size: 1.2em;
   border: thick double #e78b06;
-  padding: 0.5em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+
+h4 > .fa-trash-alt {
+  padding-right: 0.5em;
+  padding-left: 0.5em;
 }
 
 .form-control {
