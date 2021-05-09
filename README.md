@@ -12,7 +12,6 @@ Validation des données issues de sources externes
 
 Gestion des évènements JavaScript
 
-Le back-end du projet se situe dans le dossier JWDP5
 
 ### Installation ###
 
