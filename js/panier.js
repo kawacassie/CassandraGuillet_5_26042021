@@ -2,6 +2,18 @@
 let teddies = [];
 let contenuPanier = [];
 let arrayPrice = [];
+let products = [];
+let contact = {};
+
+class ContactInfo {
+    constructor (firstName, lastName, address, city, email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.city = city;
+        this.email = email; 
+    }
+}
 
 /* Appel API produits + récupérer Panier */
 
@@ -20,9 +32,11 @@ getTeddies = () =>{
                     let itemTeddy = teddies.find(teddies => teddies["_id"] == contenuPanier[i].idTeddy);
                     createPanier(itemTeddy, contenuPanier);
                     addItemPrice(itemTeddy);
+                    addIdProducts(contenuPanier)
                 }
                 totalPricePanier(arrayPrice);
                 deletePanier();
+                validerFormulaire()
 
             } else {
                 console.log("ERREUR connection API")
@@ -104,7 +118,7 @@ function totalPricePanier(arrayPrice) {
         totalPrice.classList.add("text-primary", "font-weight-bold", "my-4")
         localStorage.setItem("montantTotal", JSON.stringify(total));
     }
-    console.log(total/100);
+    //console.log(total/100);
 }
 
 /* END Prix total du panier */
@@ -131,3 +145,65 @@ function deletePanier() {
 
 
 
+/* Ajouts ID des produits dans tableau products */
+
+function addIdProducts(contenuPanier) {
+    products.push(contenuPanier[i].idTeddy);
+    console.log(products)
+}
+
+/* END Ajouts ID des produits dans tableau products */
+
+
+
+/* Récupérer les données des formulaires */
+
+function contenuFormulaire(){
+    let firstName = document.getElementById("firstName").value;
+    let lastName = document.getElementById("lastName").value;
+    let address = document.getElementById("address").value;
+    let city = document.getElementById("city").value;
+    let email = document.getElementById("email").value;
+    contact = new ContactInfo(firstName, lastName, address, city, email);
+}
+
+/* END Récupérer les données des formulaires */
+
+
+/* Valider commande et envoi objet contact + tableau product */
+
+function confirmationCommande() {
+    contenuFormulaire();
+    infoToSend = JSON.stringify({contact, products});
+    console.log(infoToSend);
+}
+
+/* END Valider commande et envoi objet contact + tableau product */
+
+
+/* Vérifier les données formulaire */
+
+function validerFormulaire(){
+    let buttonValidation = document.getElementById("btn-validation");
+    buttonValidation.addEventListener("click", function(){
+        let firstName = document.getElementById("firstName").value;
+        let lastName = document.getElementById("lastName").value;
+        let address = document.getElementById("address").value;
+        let city = document.getElementById("city").value;
+        let email = document.getElementById("email").value;
+        let checkNumber = /[0-9]/;
+        let checkMail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+        if (firstName, lastName, address, city, email != "" && checkNumber.test(firstName && lastName && city) == false && checkMail.test(email)) {
+            console.log("OK commande")
+            confirmationCommande();
+            return true;
+        } else {
+            alert("Saisissez tous les champs et entrez un email valide");
+            console.log("erreur de saisie");
+            return false;
+        }
+    })
+}
+
+
+/* END Vérifier les données formulaire */

@@ -173,8 +173,8 @@ function addPanier(buttonPanier, idTeddy){
     buttonPanier.addEventListener ("click", function () {
         let contenuPanier = JSON.parse(localStorage.getItem("contenuPanier"));
         let selectedColor = document.getElementById("colorsList").value;
-        //console.log(selectedColor);
-        //console.log(idTeddy);
+        console.log(selectedColor);
+        console.log(idTeddy);
         let product = new MyProduct(idTeddy, selectedColor);
         contenuPanier.push(product);
         localStorage.setItem("contenuPanier", JSON.stringify(contenuPanier));
