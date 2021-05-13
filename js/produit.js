@@ -155,9 +155,11 @@ function chooseColor(divLink, choosenTeddy){
 /* Ajout élément dans le panier */ 
 
 class MyProduct {
-    constructor(idTeddy, selectedColor){
+    constructor(idTeddy, selectedColor, priceTeddy, nameTeddy){
         this.idTeddy = idTeddy; 
         this.selectedColor = selectedColor;
+        this.priceTeddy = priceTeddy;
+        this.nameTeddy = nameTeddy;
     }
 }
 
@@ -173,9 +175,12 @@ function addPanier(buttonPanier, idTeddy){
     buttonPanier.addEventListener ("click", function () {
         let contenuPanier = JSON.parse(localStorage.getItem("contenuPanier"));
         let selectedColor = document.getElementById("colorsList").value;
+        choosenTeddy = teddies.find (teddies => teddies["_id"] == idTeddy);
+        let priceTeddy = choosenTeddy.price /100;
+        let nameTeddy = choosenTeddy.name;
         console.log(selectedColor);
         console.log(idTeddy);
-        let product = new MyProduct(idTeddy, selectedColor);
+        let product = new MyProduct(idTeddy, selectedColor, priceTeddy, nameTeddy);
         contenuPanier.push(product);
         localStorage.setItem("contenuPanier", JSON.stringify(contenuPanier));
         console.log(contenuPanier);
