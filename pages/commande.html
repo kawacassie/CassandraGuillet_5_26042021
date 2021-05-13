@@ -2,11 +2,92 @@
 <html lang="fr">
     <head>
         <meta charset="UTF-8">
-        <title>Oribear - Ma commande</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="Orinoco, site de vente en ligne par thématiques, vous présente Oribear et ses ours en peluche faits à la main">
+
+        <title>Oribear - Ma commande</title>
+
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Chelsea+Market&display=swap" rel="stylesheet"> 
+        <link rel="stylesheet" href="../scss/style.css">
+
+        <script src="https://kit.fontawesome.com/2aa7d080bb.js" crossorigin="anonymous"></script>
+
     </head>
     <body>
-        
+
+        <div class="container">
+            
+            <!-- HEADER -->
+            <header class="row bg-light">
+                <div class="col-12 col-md-6">
+                    <img class="logo" src="../images/logo_mini.png" alt="Logo Orinoco">
+                </div>
+                <nav class="col-12 col-md-6 navbar">
+                    <a class="nav-link" href="index.html"><i class="fas fa-home"></i> Accueil</a>
+                    <a class="nav-link" href="pages/panier.html"><i class="fas fa-shopping-cart"></i> Mon panier</i></a>
+                </nav>
+            </header>
+            <!-- END HEADER -->
+
+            <!-- PAGE PRESENTATION -->
+            <section class="row">
+                <div class="col text-center text-secondary">
+                    <h1>Oribear</h1>
+                    <h2>Confirmation de votre commande</h2>
+                </div>
+            </section>
+            <!-- END PAGE PRESENTATION -->
+
+            <!-- SECTION REMERCIEMENT -->
+            <section class="row d-flex justify-content-center text-center" id="commande-thank">
+                <article class="col bg-light">
+                    <p>REMERCIEMENTS</p>
+                </article>
+            </section>
+            <!-- END SECTION REMERCIEMENT -->
+
+            <!-- MAIN -->
+            <main class="row d-flex justify-content-center text-center" id="main-commande">
+                <article class="col bg-light">
+                    <p>RECAP COMMANDE</p>
+                </article>
+            </main>
+            <!-- END MAIN -->
+
+            <!-- FOOTER -->
+            <footer class="row bg-light">
+                <div class="col-12 col-md-4 text-primary">
+                    <h3 class="text-center">À propos</h3>
+                    <ul>
+                        <li><a href="mailto:contact-oribear@exemple.com">Contact</a></li>
+                        <li><a href="../index.html">Mentions légales</a></li>
+                    </ul>
+                </div>
+                <div class="col-12 col-md-4 text-primary">
+                    <h3 class="text-center">Sites du groupe Orinoco</h3>
+                    <ul>
+                        <li><a href="../index.html">Oribook</a></li>
+                        <li><a href="../index.html">Oritextil</a></li>
+                    </ul>
+                </div>
+                <div class="col-12 col-md-4 text-primary">
+                    <h3 class="text-center">Communauté</h3>
+                    <ul>
+                        <li><a href="https://fr-fr.facebook.com/">Facebook</a></li>
+                        <li><a href="https://twitter.com/?lang=fr">Twitter</a></li>
+                        <li><a href="https://www.instagram.com/?hl=fr">Instagram</a></li>
+                    </ul>
+                </div>
+            </footer>
+            <!-- END FOOTER -->
+          </div>
+
+        <!-- Scripts JS --> 
+        <script type="text/javascript" src="../js/commande.js"></script>
+        <script type="text/javascript" src="../models/Teddy.js"></script>
+        <script type="text/javascript" src="../routes/teddy.js"></script>
+        <!-- END Scripts JS -->
     </body>
 
 </html>

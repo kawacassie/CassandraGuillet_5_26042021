@@ -2,11 +2,152 @@
 <html lang="fr">
     <head>
         <meta charset="UTF-8">
-        <title>Oribear - Mon panier</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="Orinoco, site de vente en ligne par thématiques, vous présente Oribear et ses ours en peluche faits à la main">
+
+        <title>Oribear - Mon panier</title>
+       
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Chelsea+Market&display=swap" rel="stylesheet"> 
+        <link rel="stylesheet" href="../scss/style.css">
+
+        <script src="https://kit.fontawesome.com/2aa7d080bb.js" crossorigin="anonymous"></script>
+
     </head>
     <body>
+
+        <div class="container">
+            
+            <!-- HEADER -->
+            <header class="row bg-light">
+                <div class="col-12 col-md-6">
+                    <img class="logo" src="../images/logo_mini.png" alt="Logo Orinoco">
+                </div>
+                <nav class="col-12 col-md-6 navbar">
+                    <a class="nav-link" href="../index.html"><i class="fas fa-home"></i> Accueil</a>
+                    <a class="nav-link" href="panier.html"><i class="fas fa-shopping-cart"></i> Mon panier</i></a>
+                </nav>
+            </header>
+            <!-- END HEADER -->
+
+            <!-- PAGE PRESENTATION -->
+            <section class="row">
+                <div class="col text-center text-secondary">
+                    <h1>Oribear</h1>
+                    <h2>Vérifiez votre panier</h2> 
+                </div>
+            </section>
+            <!-- END PAGE PRESENTATION -->
+
+            <!-- MAIN -->
+            <main class="row d-flex justify-content-center text-center" id="main-panier">
+                <article class="col bg-light">
+                <h3 class="text-primary">Récapitulatif du panier</h3>
+                    <div class="d-flex flex-row justify-content-around text-primary font-weight-bold my-4">
+                
+                        <h4 class="col-md-2">Nom</h4>
+                        <h4 class="col-md-2">Couleur</h4>
+                        <h4 class="col-md-2">Prix</h4>
+                        <h4><i class="fas fa-trash-alt"></i></h4>
+
+                    </div>
+
+                    <div id="contenu-panier">
+                        <!-- Ajouter panier via JS -->
+                    </div>
+
+                    <!-- Prix total et vider le panier -->
+                    <div class="d-flex flex-column align-items-center flex-md-row justify-content-md-around">
+                        <div id="prix-total">
+                            <!-- Ajouter via JS -->
+                        </div>
+
+                        <div id="vider-panier">
+                            <!-- Ajouter via JS -->
+                        </div>
+                    </div>
+
+                </article>
+            </main>
+            <!-- END MAIN -->
+
+            <!-- SECTION FORMULAIRE -->
+            <section class="row d-flex justify-content-center text-center" id="panier-formulaire">
+                <form class="col bg-light p-2 mb-5" id="form">
+                    <h3 class="text-primary">Pour valider votre commande, veuillez remplir les champs ci-dessous :</h3>
+                    <div class="form-row d-flex justify-content-center">
+
+                        <!-- Prénom -->
+                        <div class="col-12 col-md-7 my-4 text-primary font-weight-bold text-left">
+                            <label for="firstName">Prénom :</label>
+                            <input type="text" class="form-control" placeholder="Martin" id="firstName" required>
+                        </div>
+
+                        <!-- Nom -->
+                        <div class="col-12 col-md-7 my-4 text-primary font-weight-bold text-left">
+                            <label for="lastName">Nom :</label>
+                            <input type="text" class="form-control" placeholder="Dupont" id="lastName" required>
+                        </div>
+
+                        <!-- Adresse -->
+                        <div class="col-12 col-md-7 my-4 text-primary font-weight-bold text-left">
+                            <label for="address">Adresse :</label>
+                            <input type="text" class="form-control" placeholder="1, place Charles de Gaulle" id="address" required>
+                        </div>
+
+                        <!-- Ville -->
+                        <div class="col-12 col-md-7 my-4 text-primary font-weight-bold text-left">
+                            <label for="city">Ville :</label>
+                            <input type="text" class="form-control" placeholder="Paris" id="city" required>
+                        </div>
+
+                        <!-- E-mail -->
+                        <div class="col-12 col-md-7 my-4 text-primary font-weight-bold text-left">
+                            <label for="email">E-mail :</label>
+                            <input type="email" class="form-control" placeholder="martindupont@exemple.fr" id="email" required>
+                        </div>
+
+                        <!-- Bouton Valider -->
+                        <div class="col-7" id="btn-validation">
+                            <button class="btn btn-info text-primary font-weight-bold my-4">Valider ma commande</button>
+                        </div>
+
+                    </div>
+                </form>
+            </section>
+            <!-- END SECTION FORMULAIRE -->
+
+            <!-- FOOTER -->
+            <footer class="row bg-light">
+                <div class="col-12 col-md-4 text-primary">
+                    <h3 class="text-center">À propos</h3>
+                    <ul>
+                        <li><a href="mailto:contact-oribear@exemple.com">Contact</a></li>
+                        <li><a href="../index.html">Mentions légales</a></li>
+                    </ul>
+                </div>
+                <div class="col-12 col-md-4 text-primary">
+                    <h3 class="text-center">Sites du groupe Orinoco</h3>
+                    <ul>
+                        <li><a href="../index.html">Oribook</a></li>
+                        <li><a href="../index.html">Oritextil</a></li>
+                    </ul>
+                </div>
+                <div class="col-12 col-md-4 text-primary">
+                    <h3 class="text-center">Communauté</h3>
+                    <ul>
+                        <li><a href="https://fr-fr.facebook.com/">Facebook</a></li>
+                        <li><a href="https://twitter.com/?lang=fr">Twitter</a></li>
+                        <li><a href="https://www.instagram.com/?hl=fr">Instagram</a></li>
+                    </ul>
+                </div>
+            </footer>
+            <!-- END FOOTER -->
+          </div>
         
+        <!-- Scripts JS --> 
+        <script type="text/javascript" src="../js/panier.js"></script>
+        <!-- END Scripts JS -->
     </body>
 
 </html>
