@@ -2,8 +2,6 @@ let teddies = [];
 
 /* Appel API produits */
 
-const APIURL = "http://localhost:3000/api/teddies";
-
 getTeddies = () =>{
     return new Promise((resolve) =>{
         let request = new XMLHttpRequest();
@@ -17,12 +15,18 @@ getTeddies = () =>{
                 console.log("ERREUR connection API")
             }
         }
-        request.open("GET", APIURL);
+        request.open("GET", "http://localhost:3000/api/teddies/");
         request.send();
     })
 }
 
 /* END Appel API produits */
+
+async function callTeddies(){
+    const callTeddies = await getTeddies();
+}
+
+callTeddies()
 
 
 /* Récupérer ID Teddy */
@@ -184,10 +188,8 @@ function addPanier(buttonPanier, idTeddy){
         contenuPanier.push(product);
         localStorage.setItem("contenuPanier", JSON.stringify(contenuPanier));
         console.log(contenuPanier);
+        alert("Cet article a été ajouté à votre panier")
     })
 }
 
 /* END Ajout élément dans le panier */ 
-
-
-getTeddies()

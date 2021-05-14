@@ -198,7 +198,7 @@ function confirmationCommande() {
 
 /* Requête POST API */
 
-async function postFormulaire(infoToSend){
+/*async function postFormulaire(infoToSend){
     try { 
         let response = await fetch("http://localhost:3000/api/teddies/order", {
             method: "POST",
@@ -224,25 +224,22 @@ function getOrderId(responseId){
     let orderId = responseId.orderId; 
     console.log(orderId);
     localStorage.setItem("orderConfirmationId", orderId)
-} 
+} */
 
-
-/* const URLPOST = "http://localhost:3000/api/teddies/order";
-
-function postFormulaire(infoToSend, URLPOST) {
+postFormulaire = (infoToSend) => {
     return new Promise((resolve) => {
         let request = new XMLHttpRequest();
-        request.onload = function () {
+        request.onreadystatechange = function () {
             if (this.readyState == XMLHttpRequest.DONE && this.status == 201) {
                 sessionStorage.setItem("order", this.responseText);
-                window.location = "commande.html"
+                //window.location.href = "./pages/commande.html"
                 resolve(JSON.parse(this.responseText));
-                console.log(infoToSend);
+                console.log("ok POST");
             } else {
                 console.log("Erreur POST")
             }
         };
-        request.open("POST", URLPOST);
+        request.open("POST", "http://localhost:3000/api/teddies/order");
         request.setRequestHeader("Content-Type", "application/json");
         request.send(infoToSend);
     })
@@ -250,4 +247,3 @@ function postFormulaire(infoToSend, URLPOST) {
 }
 
 /* END Requête POST API */
-
