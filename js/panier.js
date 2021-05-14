@@ -18,10 +18,9 @@ class ContactInfo {
 
 function getTeddies(){
     contenuPanier = JSON.parse(localStorage.getItem("contenuPanier")) || {};
-    console.log(contenuPanier);
     for (i = 0; i < contenuPanier.length; i++){
         let itemTeddy = contenuPanier[i].idTeddy;
-        console.log(itemTeddy);
+        //console.log(itemTeddy);
         createPanier(itemTeddy, contenuPanier);
         addItemPrice(contenuPanier);
         addIdProducts(contenuPanier)
@@ -211,6 +210,7 @@ async function postFormulaire(infoToSend){
         if (response.ok){
             let responseId = await response.json();
             getOrderId(responseId);
+            window.location.href = "commande.html";
             console.log(localStorage);
         } else {
             console.log("Erreur POST formulaire")
