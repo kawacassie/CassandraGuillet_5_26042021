@@ -2,8 +2,6 @@ let teddies = [];
 
 /* Appel API produits */
 
-const APIURL = "http://localhost:3000/api/teddies";
-
 getTeddies = () =>{
     return new Promise((resolve) =>{
         let request = new XMLHttpRequest();
@@ -17,12 +15,18 @@ getTeddies = () =>{
                 console.log("ERREUR connection API")
             }
         }
-        request.open("GET", APIURL);
+        request.open("GET", "http://localhost:3000/api/teddies/");
         request.send();
     })
 }
 
 /* END Appel API produits */
+
+async function callTeddies(){
+    const callTeddies = await getTeddies();
+}
+
+callTeddies()
 
 
 /* Récupérer ID Teddy */
@@ -155,9 +159,11 @@ function chooseColor(divLink, choosenTeddy){
 /* Ajout élément dans le panier */ 
 
 class MyProduct {
-    constructor(idTeddy, selectedColor){
+    constructor(idTeddy, selectedColor, priceTeddy, nameTeddy){
         this.idTeddy = idTeddy; 
         this.selectedColor = selectedColor;
+        this.priceTeddy = priceTeddy;
+        this.nameTeddy = nameTeddy;
     }
 }
 
@@ -173,16 +179,17 @@ function addPanier(buttonPanier, idTeddy){
     buttonPanier.addEventListener ("click", function () {
         let contenuPanier = JSON.parse(localStorage.getItem("contenuPanier"));
         let selectedColor = document.getElementById("colorsList").value;
+        choosenTeddy = teddies.find (teddies => teddies["_id"] == idTeddy);
+        let priceTeddy = choosenTeddy.price /100;
+        let nameTeddy = choosenTeddy.name;
         console.log(selectedColor);
         console.log(idTeddy);
-        let product = new MyProduct(idTeddy, selectedColor);
+        let product = new MyProduct(idTeddy, selectedColor, priceTeddy, nameTeddy);
         contenuPanier.push(product);
         localStorage.setItem("contenuPanier", JSON.stringify(contenuPanier));
         console.log(contenuPanier);
+        alert("Cet article a été ajouté à votre panier")
     })
 }
 
 /* END Ajout élément dans le panier */ 
-
-
-getTeddies()

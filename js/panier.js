@@ -1,4 +1,3 @@
-
 let teddies = [];
 let contenuPanier = [];
 let arrayPrice = [];
@@ -15,39 +14,24 @@ class ContactInfo {
     }
 }
 
-/* Appel API produits + récupérer Panier */
+/* Récupérer Panier + construction page */
 
-const APIURL = "http://localhost:3000/api/teddies";
-
-getTeddies = () =>{
-    return new Promise((resolve) =>{
-        contenuPanier = JSON.parse(localStorage.getItem("contenuPanier")) || {};
-        let request = new XMLHttpRequest();
-        request.onreadystatechange = function(){
-            if (this.readyState == XMLHttpRequest.DONE && this.status ==200){
-                resolve(JSON.parse(this.responseText));
-                console.log("Connection ok");
-                teddies = JSON.parse(this.responseText);
-                for (i = 0; i < contenuPanier.length; i++){
-                    let itemTeddy = teddies.find(teddies => teddies["_id"] == contenuPanier[i].idTeddy);
-                    createPanier(itemTeddy, contenuPanier);
-                    addItemPrice(itemTeddy);
-                    addIdProducts(contenuPanier)
-                }
-                totalPricePanier(arrayPrice);
-                deletePanier();
-                validerFormulaire()
-
-            } else {
-                console.log("ERREUR connection API")
-            }
-        }
-        request.open("GET", APIURL);
-        request.send();
-    })
+function getTeddies(){
+    contenuPanier = JSON.parse(localStorage.getItem("contenuPanier")) || {};
+    for (i = 0; i < contenuPanier.length; i++){
+        let itemTeddy = contenuPanier[i].idTeddy;
+        //console.log(itemTeddy);
+        createPanier(itemTeddy, contenuPanier);
+        addItemPrice(contenuPanier);
+        addIdProducts(contenuPanier)
+    }
+    totalPricePanier(arrayPrice);
+    deletePanier();
+    validerFormulaire()
+    console.log(contenuPanier);
 }
 
-/* Appel API produits + récupérer Panier */
+/* END Récupérer Panier + construction page */
 
 getTeddies()
 
@@ -64,7 +48,7 @@ function createPanier(itemTeddy, contenuPanier){
     /* DIV NOM */
     let nameTeddy = document.createElement("p");
     divPanier.appendChild(nameTeddy);
-    nameTeddy.textContent = itemTeddy.name;
+    nameTeddy.textContent = contenuPanier[i].nameTeddy;
     nameTeddy.classList.add("my-3", "col-3", "col-md-2", "align-self-center");
 
     /* DIV COULEUR */
@@ -76,7 +60,7 @@ function createPanier(itemTeddy, contenuPanier){
     /* DIV PRIX */
     let priceTeddy = document.createElement("p");
     divPanier.appendChild(priceTeddy);
-    priceTeddy.textContent = itemTeddy.price / 100 + "€"; 
+    priceTeddy.textContent = contenuPanier[i].priceTeddy + "€"; 
     priceTeddy.classList.add("price", "my-3", "col-2", "align-self-center");
 
     /* DIV SUPPRIMER UN ELEMENT */
@@ -104,8 +88,8 @@ function createPanier(itemTeddy, contenuPanier){
 
 /* Prix total du panier */
 
-function addItemPrice(itemTeddy){
-    let itemPrice = itemTeddy.price;
+function addItemPrice(contenuPanier){
+    let itemPrice = contenuPanier[i].priceTeddy;
     arrayPrice.push(itemPrice);
 }
 
@@ -114,11 +98,11 @@ function totalPricePanier(arrayPrice) {
     let total = 0; 
     for (i = 0; i < arrayPrice.length; i++){
         total = total + arrayPrice[i]; 
-        totalPrice.textContent = "Montant total = " + (total/100) + "€";
+        totalPrice.textContent = "Montant total = " + (total) + "€";
         totalPrice.classList.add("text-primary", "font-weight-bold", "my-4")
         localStorage.setItem("montantTotal", JSON.stringify(total));
     }
-    //console.log(total/100);
+    //console.log(total);
 }
 
 /* END Prix total du panier */
@@ -170,16 +154,6 @@ function contenuFormulaire(){
 /* END Récupérer les données des formulaires */
 
 
-/* Valider commande et envoi objet contact + tableau product */
-
-function confirmationCommande() {
-    contenuFormulaire();
-    infoToSend = JSON.stringify({contact, products});
-    console.log(infoToSend);
-}
-
-/* END Valider commande et envoi objet contact + tableau product */
-
 
 /* Vérifier les données formulaire */
 
@@ -207,3 +181,69 @@ function validerFormulaire(){
 
 
 /* END Vérifier les données formulaire */
+
+
+
+/* Valider commande et envoi objet contact + tableau product */
+
+function confirmationCommande() {
+    contenuFormulaire();
+    infoToSend = JSON.stringify({contact, products});
+    console.log(infoToSend);
+    postFormulaire(infoToSend)
+}
+
+/* END Valider commande et envoi objet contact + tableau product */
+
+
+/* Requête POST API */
+
+/*async function postFormulaire(infoToSend){
+    try { 
+        let response = await fetch("http://localhost:3000/api/teddies/order", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: infoToSend,
+        });
+        if (response.ok){
+            let responseId = await response.json();
+            getOrderId(responseId);
+            window.location.href = "commande.html";
+            console.log(localStorage);
+        } else {
+            console.log("Erreur POST formulaire")
+        }
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+function getOrderId(responseId){
+    let orderId = responseId.orderId; 
+    console.log(orderId);
+    localStorage.setItem("orderConfirmationId", orderId)
+} */
+
+postFormulaire = (infoToSend) => {
+    return new Promise((resolve) => {
+        let request = new XMLHttpRequest();
+        request.onreadystatechange = function () {
+            if (this.readyState == XMLHttpRequest.DONE && this.status == 201) {
+                sessionStorage.setItem("order", this.responseText);
+                //window.location.href = "./pages/commande.html"
+                resolve(JSON.parse(this.responseText));
+                console.log("ok POST");
+            } else {
+                console.log("Erreur POST")
+            }
+        };
+        request.open("POST", "http://localhost:3000/api/teddies/order");
+        request.setRequestHeader("Content-Type", "application/json");
+        request.send(infoToSend);
+    })
+
+}
+
+/* END Requête POST API */

@@ -2,9 +2,6 @@ let teddies = [];
 
 /* Appel API produits */
 
-const APIURL = "http://localhost:3000/api/teddies";
-
-
 getTeddies = () =>{
     return new Promise((resolve) =>{
         let request = new XMLHttpRequest();
@@ -18,7 +15,7 @@ getTeddies = () =>{
                 console.log("ERREUR connection API")
             }
         }
-        request.open("GET", APIURL);
+        request.open("GET", "http://localhost:3000/api/teddies/");
         request.send();
 
     })
@@ -26,8 +23,11 @@ getTeddies = () =>{
 
 /* END Appel API produits */
 
-getTeddies()
+async function callTeddies(){
+    const callTeddies = await getTeddies();
+}
 
+callTeddies()
 
 /* Création des cards produits */
 function createCardTeddy(teddies){
