@@ -166,8 +166,8 @@ function validerFormulaire(){
         let city = document.getElementById("city").value;
         let email = document.getElementById("email").value;
         let checkNumber = /[0-9]/;
-        let checkMail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-        if (firstName, lastName, address, city, email != "" && checkNumber.test(firstName && lastName && city) == false && checkMail.test(email)) {
+        //let checkMail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+        if (firstName, lastName, address, city, email != "" && checkNumber.test(firstName && lastName && city) == false) {
             console.log("OK commande")
             confirmationCommande();
             return true;
@@ -198,9 +198,9 @@ function confirmationCommande() {
 
 /* Requête POST API */
 
-/*async function postFormulaire(infoToSend){
-    try { 
-        let response = await fetch("http://localhost:3000/api/teddies/order", {
+/*function postFormulaire(infoToSend){
+    
+        let response = fetch("http://localhost:3000/api/teddies/order", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -208,16 +208,14 @@ function confirmationCommande() {
             body: infoToSend,
         });
         if (response.ok){
-            let responseId = await response.json();
+            let responseId = response.json();
             getOrderId(responseId);
             window.location.href = "commande.html";
             console.log(localStorage);
         } else {
             console.log("Erreur POST formulaire")
         }
-    } catch (e) {
-        console.log(e)
-    }
+    
 }
 
 function getOrderId(responseId){
@@ -226,11 +224,11 @@ function getOrderId(responseId){
     localStorage.setItem("orderConfirmationId", orderId)
 } */
 
-postFormulaire = (infoToSend) => {
+ postFormulaire = (infoToSend) => {
     return new Promise((resolve) => {
         let request = new XMLHttpRequest();
         request.onreadystatechange = function () {
-            if (this.readyState == XMLHttpRequest.DONE && this.status == 201) {
+            if (this.readyState == XMLHttpRequest.DONE || this.status == 201) {
                 sessionStorage.setItem("order", this.responseText);
                 //window.location.href = "./pages/commande.html"
                 resolve(JSON.parse(this.responseText));
@@ -240,6 +238,7 @@ postFormulaire = (infoToSend) => {
             }
         };
         request.open("POST", "http://localhost:3000/api/teddies/order");
+        request.setRequestHeader("Accept", "application/json");
         request.setRequestHeader("Content-Type", "application/json");
         request.send(infoToSend);
     })
