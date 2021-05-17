@@ -166,14 +166,13 @@ function validerFormulaire(){
         let city = document.getElementById("city").value;
         let email = document.getElementById("email").value;
         let checkNumber = /[0-9]/;
-        //let checkMail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
         if (firstName, lastName, address, city, email != "" && checkNumber.test(firstName && lastName && city) == false) {
-            console.log("OK commande")
+            console.log("Commande validée")
             confirmationCommande();
             return true;
         } else {
             alert("Saisissez tous les champs et entrez un email valide");
-            console.log("erreur de saisie");
+            console.log("Erreur de saisie");
             return false;
         }
     })
@@ -188,7 +187,7 @@ function validerFormulaire(){
 
 function confirmationCommande() {
     contenuFormulaire();
-    infoToSend = JSON.stringify({contact, products});
+    let infoToSend = JSON.stringify({contact, products});
     console.log(infoToSend);
     postFormulaire(infoToSend)
 }
@@ -228,13 +227,11 @@ function getOrderId(responseId){
     return new Promise((resolve) => {
         let request = new XMLHttpRequest();
         request.onreadystatechange = function () {
-            if (this.readyState == XMLHttpRequest.DONE || this.status == 201) {
-                sessionStorage.setItem("order", JSON.stringify(this.responseText));
+            if (this.readyState == XMLHttpRequest.DONE && this.status == 201) {
+                sessionStorage.setItem("order", this.responseText);
                 //window.location.href = "./pages/commande.html"
-                resolve(this.responseText);
+                resolve(JSON.parse(this.responseText));
                 console.log("ok POST");
-                let orderId = resolve(JSON.parse(this.responseText));
-                console.log(orderId);
             } else {
                 console.log("Erreur POST")
             }
