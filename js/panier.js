@@ -229,10 +229,12 @@ function getOrderId(responseId){
         let request = new XMLHttpRequest();
         request.onreadystatechange = function () {
             if (this.readyState == XMLHttpRequest.DONE || this.status == 201) {
-                sessionStorage.setItem("order", this.responseText);
+                sessionStorage.setItem("order", JSON.stringify(this.responseText));
                 //window.location.href = "./pages/commande.html"
-                resolve(JSON.parse(this.responseText));
+                resolve(this.responseText);
                 console.log("ok POST");
+                let orderId = resolve(JSON.parse(this.responseText));
+                console.log(orderId);
             } else {
                 console.log("Erreur POST")
             }
