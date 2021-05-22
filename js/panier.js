@@ -27,7 +27,7 @@ function getTeddies(){
     }
     totalPricePanier(arrayPrice);
     deletePanier();
-    validerFormulaire()
+    validerFormulaire();
     console.log(contenuPanier);
 }
 
@@ -140,24 +140,68 @@ function addIdProducts(contenuPanier) {
 
 
 
-/* Récupérer les données des formulaires */
 
-function contenuFormulaire(){
+/* Récupérer et vérifier les données formulaire */
+
+function validerFormulaire() {
+    let checkNumber = /[0-9]/;
+    let checkSpecialCharacter = /[§!@#$%^&*().?":{}|<>]/;
+    let checkMessage = "";
+
     let firstName = document.getElementById("firstName").value;
     let lastName = document.getElementById("lastName").value;
     let address = document.getElementById("address").value;
     let city = document.getElementById("city").value;
     let email = document.getElementById("email").value;
-    contact = new ContactInfo(firstName, lastName, address, city, email);
+
+    let buttonValidation = document.getElementById("btn-validation");
+    buttonValidation.addEventListener("click", function(){
+        if (
+            checkNumber.test(firstName) == true ||
+            checkSpecialCharacter.test(firstName) == true ||
+            firstName == ""
+        ) {
+            checkMessage = "Veuillez vérifier les informations concernant votre prénom"
+        } else {
+            console.log("First Name OK");
+        }
+        if (
+            checkNumber.test(lastName) == true ||
+            checkSpecialCharacter.test(lastName) == true ||
+            lastName == ""
+        ) {
+            checkMessage = checkMessage + "\n" + "Veuillez vérifier les informations concernant votre nom"
+        } else {
+            console.log("Last Name OK");
+        }
+        if (
+            checkSpecialCharacter.test(address) == true ||
+            address == ""
+        ) {
+            checkMessage = checkMessage + "\n" + "Veuillez vérifier les informations concernant votre addresse"
+        } else {
+            console.log("Address OK");
+        }
+        if (
+            checkNumber.test(city) == true ||
+            checkSpecialCharacter.test(city) == true ||
+            city == ""
+        ) {
+            checkMessage = checkMessage + "\n" + "Veuillez vérifier les informations concernant votre ville"
+        } else {
+            console.log("City OK");
+        }
+        if (checkMessage != "") {
+            alert("Attention certaines données ne sont pas conformes :" + "\n" + checkMessage)
+        } else {
+            contact = new ContactInfo(firstName, lastName, address, city, email);
+        };
+        return contact;
+    })
+
 }
 
-/* END Récupérer les données des formulaires */
-
-
-
-/* Vérifier les données formulaire */
-
-function validerFormulaire(){
+/*function validerFormulaire(){
     let buttonValidation = document.getElementById("btn-validation");
     buttonValidation.addEventListener("click", function(){
         let firstName = document.getElementById("firstName").value;
@@ -168,6 +212,7 @@ function validerFormulaire(){
         let checkNumber = /[0-9]/;
         if (firstName, lastName, address, city, email != "" && checkNumber.test(firstName && lastName && city) == false) {
             console.log("Commande validée")
+            contact = new ContactInfo(firstName, lastName, address, city, email);
             confirmationCommande();
             return true;
         } else {
@@ -179,14 +224,13 @@ function validerFormulaire(){
 }
 
 
-/* END Vérifier les données formulaire */
+/* END Récupérer et vérifier les données formulaire */
 
 
 
 /* Valider commande et envoi objet contact + tableau product */
 
 function confirmationCommande() {
-    contenuFormulaire();
     let infoToSend = JSON.stringify({contact, products});
     console.log(infoToSend);
     postFormulaire(infoToSend)
