@@ -143,65 +143,7 @@ function addIdProducts(contenuPanier) {
 
 /* Récupérer et vérifier les données formulaire */
 
-function validerFormulaire() {
-    let checkNumber = /[0-9]/;
-    let checkSpecialCharacter = /[§!@#$%^&*().?":{}|<>]/;
-    let checkMessage = "";
-
-    let firstName = document.getElementById("firstName").value;
-    let lastName = document.getElementById("lastName").value;
-    let address = document.getElementById("address").value;
-    let city = document.getElementById("city").value;
-    let email = document.getElementById("email").value;
-
-    let buttonValidation = document.getElementById("btn-validation");
-    buttonValidation.addEventListener("click", function(){
-        if (
-            checkNumber.test(firstName) == true ||
-            checkSpecialCharacter.test(firstName) == true ||
-            firstName == ""
-        ) {
-            checkMessage = "Veuillez vérifier les informations concernant votre prénom"
-        } else {
-            console.log("First Name OK");
-        }
-        if (
-            checkNumber.test(lastName) == true ||
-            checkSpecialCharacter.test(lastName) == true ||
-            lastName == ""
-        ) {
-            checkMessage = checkMessage + "\n" + "Veuillez vérifier les informations concernant votre nom"
-        } else {
-            console.log("Last Name OK");
-        }
-        if (
-            checkSpecialCharacter.test(address) == true ||
-            address == ""
-        ) {
-            checkMessage = checkMessage + "\n" + "Veuillez vérifier les informations concernant votre addresse"
-        } else {
-            console.log("Address OK");
-        }
-        if (
-            checkNumber.test(city) == true ||
-            checkSpecialCharacter.test(city) == true ||
-            city == ""
-        ) {
-            checkMessage = checkMessage + "\n" + "Veuillez vérifier les informations concernant votre ville"
-        } else {
-            console.log("City OK");
-        }
-        if (checkMessage != "") {
-            alert("Attention certaines données ne sont pas conformes :" + "\n" + checkMessage)
-        } else {
-            contact = new ContactInfo(firstName, lastName, address, city, email);
-        };
-        return contact;
-    })
-
-}
-
-/*function validerFormulaire(){
+function validerFormulaire(){
     let buttonValidation = document.getElementById("btn-validation");
     buttonValidation.addEventListener("click", function(){
         let firstName = document.getElementById("firstName").value;
@@ -209,11 +151,14 @@ function validerFormulaire() {
         let address = document.getElementById("address").value;
         let city = document.getElementById("city").value;
         let email = document.getElementById("email").value;
+
         let checkNumber = /[0-9]/;
-        if (firstName, lastName, address, city, email != "" && checkNumber.test(firstName && lastName && city) == false) {
-            console.log("Commande validée")
+        let checkSpecialCharacter = /[§!@#$%^&*().?":{}|<>]/;
+
+        if (checkNumber.test(firstName && lastName && city) == false && checkSpecialCharacter.test(firstName && lastName && address && city) == false) {
             contact = new ContactInfo(firstName, lastName, address, city, email);
             confirmationCommande();
+            alert("Commande validée");
             return true;
         } else {
             alert("Saisissez tous les champs et entrez un email valide");
@@ -241,41 +186,17 @@ function confirmationCommande() {
 
 /* Requête POST API */
 
-/*function postFormulaire(infoToSend){
-    
-        let response = fetch("http://localhost:3000/api/teddies/order", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: infoToSend,
-        });
-        if (response.ok){
-            let responseId = response.json();
-            getOrderId(responseId);
-            window.location.href = "commande.html";
-            console.log(localStorage);
-        } else {
-            console.log("Erreur POST formulaire")
-        }
-    
-}
-
-function getOrderId(responseId){
-    let orderId = responseId.orderId; 
-    console.log(orderId);
-    localStorage.setItem("orderConfirmationId", orderId)
-} */
-
  postFormulaire = (infoToSend) => {
     return new Promise((resolve) => {
         let request = new XMLHttpRequest();
         request.onreadystatechange = function () {
             if (this.readyState == XMLHttpRequest.DONE && this.status == 201) {
-                sessionStorage.setItem("order", this.responseText);
-                //window.location.href = "./pages/commande.html"
                 resolve(JSON.parse(this.responseText));
+                let responseId = JSON.parse(this.responseText);
+                let orderId = responseId.orderId;
+                sessionStorage.setItem("order", orderId);
                 console.log("ok POST");
+                window.location.href = "../pages/commande.html";
             } else {
                 console.log("Erreur POST")
             }
