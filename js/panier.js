@@ -155,7 +155,7 @@ function validerFormulaire(){
         let checkNumber = /[0-9]/;
         let checkSpecialCharacter = /[§!@#$%^&*().?":{}|<>]/;
 
-        if (checkNumber.test(firstName && lastName && city) == false && checkSpecialCharacter.test(firstName && lastName && address && city) == false) {
+        if (checkNumber.test(firstName || lastName || city) === false && checkSpecialCharacter.test(firstName || lastName || address || city) === false) {
             contact = new ContactInfo(firstName, lastName, address, city, email);
             confirmationCommande();
             alert("Commande validée");
