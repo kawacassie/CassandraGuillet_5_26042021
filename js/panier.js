@@ -161,7 +161,7 @@ function validerFormulaire(){
             alert("Commande validée");
             return true;
         } else {
-            alert("Saisissez tous les champs et entrez un email valide");
+            alert("Erreur de saisie, veuillez vérifier tous les champs et entrer un email valide");
             console.log("Erreur de saisie");
             return false;
         }
