@@ -6,6 +6,7 @@ function getCommande(){
     console.log(montantTotal);
     console.log(idCommande);
     createConfirmationCommande(montantTotal, idCommande);
+    localStorage.removeItem("contenuPanier")
 }
 
 /* END Récupérer ID commande + construction page */
